@@ -5,7 +5,7 @@ let msg = document.querySelector(".msg");
 let msgcontainer = document.querySelector(".msg-container");
 
 let turnO = true;           //true for O and false for X
-
+let count = 0;              // for counting the filled boxes for checking draw.
 const winnerPatterns = [
     [0,1,2],
     [3,4,5],
@@ -32,6 +32,14 @@ boxes.forEach((box) => {
     box.disabled=true;
 
     checkWinner();
+    count++;
+
+    let isWinner = checkWinner();
+    if(count===9 && !isWinner){
+        checkDraw();
+    }
+    
+    
     });
 });
 
@@ -54,15 +62,9 @@ const checkWinner=()=>{
 };
 
 const checkDraw = () =>{
-    for(pattern of winnerPatterns){
-        let pos1val=boxes[pattern[0]].innerText;
-        let pos2val=boxes[pattern[1]].innerText;
-        let pos3val=boxes[pattern[2]].innerText;
-
-        if( boxes!="" ){
-            console
-    }
-}
+   msg.innerText = `It was a DRAW !`;
+   msgcontainer.classList.remove("hide");
+    disableboxes();
 }
 
 const congratWinner = (winner) =>{
@@ -87,6 +89,7 @@ const enableboxes = () =>{
 
 const resetbtn = () =>{
     turnO = true;
+    count = 0;
     msgcontainer.classList.add("hide");
     enableboxes();
 };
